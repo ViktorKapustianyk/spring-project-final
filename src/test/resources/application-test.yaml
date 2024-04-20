@@ -10,7 +10,10 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
+
+  liquibase:
+    changeLog: "classpath:changelog.sql"
 
   mail:
     properties:
