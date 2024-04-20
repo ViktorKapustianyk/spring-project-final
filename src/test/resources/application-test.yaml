@@ -1,8 +1,26 @@
-spring.cache.type: none
 spring:
-  init:
-    mode: always
+  config:
+    activate:
+      on-profiles: test
   datasource:
-    url: jdbc:postgresql://localhost:5433/jira-test
-    username: jira
-    password: JiraRush
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username:
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+    host: smtp.gmail.com
+    username: jira4jr@gmail.com
+    password: zdfzsrqvgimldzyj
+    port: 587
+  thymeleaf.check-template-location: false
