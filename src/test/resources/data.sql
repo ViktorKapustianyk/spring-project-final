@@ -23,7 +23,7 @@ values (1, 49),
        (2, 14);
 
 -- Вставка данных в таблицу CONTACT
-insert into CONTACT (ID, CODE, "VALUE")
+insert into CONTACT (ID, CODE, VAL)
 values (1, 'skype', 'userSkype'),
        (1, 'mobile', '+01234567890'),
        (1, 'website', 'user.com'),
