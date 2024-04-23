@@ -1,4 +1,3 @@
--- Замена значения в таблице USERS
 delete from USER_ROLE;
 delete from CONTACT;
 delete from PROFILE;
@@ -10,19 +9,16 @@ values
     ('guest@gmail.com', 'guest', 'guestFirstName', 'guestLastName', 'guestDisplayName'),
     ('manager@gmail.com', 'manager', 'managerFirstName', 'managerLastName', 'managerDisplayName');
 
--- Присвоение ролей пользователям
 insert into USER_ROLE (USER_ID, ROLE)
 values (1, 0),
        (2, 0),
        (2, 1),
        (4, 2);
 
--- Вставка данных в таблицу PROFILE
 insert into PROFILE (ID, MAIL_NOTIFICATIONS)
 values (1, 49),
        (2, 14);
 
--- Вставка данных в таблицу CONTACT
 insert into CONTACT (ID, CODE, VAL)
 values (1, 'skype', 'userSkype'),
        (1, 'mobile', '+01234567890'),
@@ -31,12 +27,10 @@ values (1, 'skype', 'userSkype'),
        (2, 'tg', 'adminTg'),
        (2, 'vk', 'adminVk');
 
--- Вставка данных в таблицу PROJECT
 insert into PROJECT (code, title, description, type_code)
 values ('PR1', 'PROJECT-1', 'test project 1', 'task_tracker'),
        ('PR2', 'PROJECT-2', 'test project 2', 'task_tracker');
 
--- Вставка данных в таблицу SPRINT
 insert into SPRINT (status_code, startpoint, code, project_id)
 values ('finished', '2023-05-01 08:05:10', 'SP-1.001', 1),
        ('active', '2023-05-01 08:06:00', 'SP-1.002', 1),
@@ -46,7 +40,6 @@ values ('finished', '2023-05-01 08:05:10', 'SP-1.001', 1),
        ('planning', '2023-05-10 08:07:00', 'SP-2.002', 2),
        ('planning', '2023-05-10 08:08:00', 'SP-2.003', 2);
 
--- Вставка данных в таблицу TASK
 insert into TASK (TITLE, TYPE_CODE, STATUS_CODE, PROJECT_ID, SPRINT_ID, STARTPOINT)
 values ('Data', 'epic', 'in_progress', 1, 1, '2023-05-15 09:05:10'),
        ('Trees', 'epic', 'in_progress', 1, 1, '2023-05-15 12:05:10'),
@@ -56,15 +49,12 @@ values ('Data', 'epic', 'in_progress', 1, 1, '2023-05-15 09:05:10'),
        ('task-6', 'task', 'done', 2, 5, '2023-06-14 09:28:10'),
        ('task-7', 'task', 'canceled', 2, 5, '2023-06-14 09:28:10');
 
--- Вставка данных в таблицу ACTIVITY
 insert into ACTIVITY(AUTHOR_ID, TASK_ID, UPDATED, TITLE, DESCRIPTION, ESTIMATE, TYPE_CODE, STATUS_CODE)
 values (1, 1, '2023-05-15 09:05:10', 'Data', null, 3, 'epic', 'in_progress'),
        (2, 1, '2023-05-15 12:25:10', 'Data', null, null, null, null),
        (1, 1, '2023-05-15 14:05:10', 'Data', null, 4, null, null),
        (1, 2, '2023-05-15 12:05:10', 'Trees', 'Trees desc', 4, 'epic', 'in_progress');
 
--- Вставка данных в таблицу USER_BELONG
--- Вставка данных в таблицу USER_BELONG
 insert into USER_BELONG (OBJECT_ID, OBJECT_TYPE, USER_ID, USER_TYPE_CODE, STARTPOINT, ENDPOINT)
 values
     (1, 2, 2, 'task_developer', '2023-06-14 08:35:10', '2023-06-14 08:55:00'),
