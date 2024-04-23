@@ -147,5 +147,4 @@ public class TaskService {
         task.getTags().add(tagText);
         handler.getRepository().save(task);
     }
-
 }

@@ -162,5 +162,4 @@ public class TaskController {
         taskService.addTagToTask(id, tagText);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 }
