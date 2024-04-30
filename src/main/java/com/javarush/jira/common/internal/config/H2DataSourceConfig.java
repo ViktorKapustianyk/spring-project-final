@@ -1,4 +1,4 @@
-package com.javarush.jira.config;
+package com.javarush.jira.common.internal.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-@Profile("test")
+@Profile("nativeTest")
 public class H2DataSourceConfig {
     @Bean
     public DataSource dataSource() {

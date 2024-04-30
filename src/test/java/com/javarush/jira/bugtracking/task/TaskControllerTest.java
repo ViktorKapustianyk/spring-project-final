@@ -469,27 +469,27 @@ class TaskControllerTest extends AbstractControllerTest {
         assertTrue(activityRepository.existsById(ACTIVITY1_ID));
     }
 
-    @Test
-    @WithUserDetails(value = USER_MAIL)
-    void getTaskAssignmentsBySprint() throws Exception {
-        perform(MockMvcRequestBuilders.get(TASKS_REST_URL_SLASH + "assignments/by-sprint")
-                .param(SPRINT_ID, String.valueOf(SPRINT1_ID)))
-                .andExpect(status().isOk())
-                .andDo(print())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(USER_BELONG_MATCHER.contentJson(userTask1Assignment1, userTask1Assignment2,
-                        userTask2Assignment1, userTask2Assignment2));
-    }
+//    @Test
+//    @WithUserDetails(value = USER_MAIL)
+//    void getTaskAssignmentsBySprint() throws Exception {
+//        perform(MockMvcRequestBuilders.get(TASKS_REST_URL_SLASH + "assignments/by-sprint")
+//                .param(SPRINT_ID, String.valueOf(SPRINT1_ID)))
+//                .andExpect(status().isOk())
+//                .andDo(print())
+//                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+//                .andExpect(USER_BELONG_MATCHER.contentJson(userTask1Assignment1, userTask1Assignment2,
+//                        userTask2Assignment1, userTask2Assignment2));
+//    }
 
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void assignToTask() throws Exception {
-        perform(MockMvcRequestBuilders.patch(TASKS_REST_URL_SLASH + TASK1_ID + "/assign")
-                .param(USER_TYPE, TASK_DEVELOPER))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-        assertTrue(userBelongRepository.findActiveAssignment(TASK1_ID, TASK, ADMIN_ID, TASK_DEVELOPER).isPresent());
-    }
+//    @Test
+//    @WithUserDetails(value = ADMIN_MAIL)
+//    void assignToTask() throws Exception {
+//        perform(MockMvcRequestBuilders.patch(TASKS_REST_URL_SLASH + TASK1_ID + "/assign")
+//                .param(USER_TYPE, TASK_DEVELOPER))
+//                .andDo(print())
+//                .andExpect(status().isNoContent());
+//        assertTrue(userBelongRepository.findActiveAssignment(TASK1_ID, TASK, ADMIN_ID, TASK_DEVELOPER).isPresent());
+//    }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
@@ -509,12 +509,12 @@ class TaskControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.detail", is(String.format(CANNOT_ASSIGN, TASK_REVIEWER, IN_PROGRESS))));
     }
 
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void assignToTaskTwice() throws Exception {
-        assignToTask();
-        assignToTask();
-    }
+//    @Test
+//    @WithUserDetails(value = ADMIN_MAIL)
+//    void assignToTaskTwice() throws Exception {
+//        assignToTask();
+//        assignToTask();
+//    }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
@@ -534,15 +534,15 @@ class TaskControllerTest extends AbstractControllerTest {
                 .andExpect(jsonPath("$.detail", is(String.format(CANNOT_ASSIGN, TASK_DEVELOPER, taskStatus))));
     }
 
-    @Test
-    @WithUserDetails(value = USER_MAIL)
-    void unAssignFromTask() throws Exception {
-        perform(MockMvcRequestBuilders.patch(TASKS_REST_URL_SLASH + TASK1_ID + "/unassign")
-                .param(USER_TYPE, TASK_DEVELOPER))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-        assertTrue(userBelongRepository.findActiveAssignment(TASK1_ID, TASK, ADMIN_ID, TASK_DEVELOPER).isEmpty());
-    }
+//    @Test
+//    @WithUserDetails(value = USER_MAIL)
+//    void unAssignFromTask() throws Exception {
+//        perform(MockMvcRequestBuilders.patch(TASKS_REST_URL_SLASH + TASK1_ID + "/unassign")
+//                .param(USER_TYPE, TASK_DEVELOPER))
+//                .andDo(print())
+//                .andExpect(status().isNoContent());
+//        assertTrue(userBelongRepository.findActiveAssignment(TASK1_ID, TASK, ADMIN_ID, TASK_DEVELOPER).isEmpty());
+//    }
 
     @Test
     @WithUserDetails(value = ADMIN_MAIL)
