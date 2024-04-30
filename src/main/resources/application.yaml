@@ -8,6 +8,8 @@ app:
     max-pool-size: 100
 
 spring:
+  profiles:
+    active: @spring.profiles.active@
   init:
     mode: never
   jpa:
@@ -87,11 +89,10 @@ spring:
             enable: true
           auth: true
     host: smtp.gmail.com
-    username: ${SPRING_MAIL_USERNAME}
-    password: ${SPRING_MAIL_PASSWORD}
+    username: jira4jr@gmail.com
+    password: zdfzsrqvgimldzyj
     port: 587
   thymeleaf.check-template-location: false
-
   mvc.throw-exception-if-no-handler-found: true
   web.resources.add-mappings: false
 

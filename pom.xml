@@ -158,6 +158,7 @@
     </dependencies>
 
     <build>
+        <finalName>root</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -188,6 +189,12 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
     <profiles>
@@ -209,21 +216,22 @@
             </build>
         </profile>
         <profile>
-            <id>test</id>
+            <id>nativeTest</id>
             <properties>
-                <spring.profiles.active>test</spring.profiles.active>
+                <spring.profiles.active>nativeTest</spring.profiles.active>
             </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skipTests>false</skipTests>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <dependencies>
+
+            </dependencies>
+        </profile>
+        <profile>
+            <id>native</id>
+            <properties>
+                <spring.profiles.active>native</spring.profiles.active>
+            </properties>
+            <dependencies>
+
+            </dependencies>
         </profile>
     </profiles>
 </project>
