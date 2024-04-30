@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  # Сервис для запуска PostgreSQL базы данных
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: jira
+      POSTGRES_USER: jira
+      POSTGRES_PASSWORD: JiraRush
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U jira" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./src/main/resources/data4dev:/docker-entrypoint-initdb.d  # Монтируем папку с data.sql как volume
+
+  # Сервис для запуска вашего Spring Boot приложения
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_USERNAME: jira
+      SPRING_DATASOURCE_PASSWORD: JiraRush
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/jira
+
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENT_ID: 3d0d8738e65881fff266
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITHUB_CLIENT_SECRET: 0f97031ce6178b7dfb67a6af587f37e222a16120
+
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_ID: 329113642700-f8if6pu68j2repq3ef6umd5jgiliup60.apps.googleusercontent.com
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENT_SECRET: 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
+
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITLAB_CLIENT_ID: b8520a3266089063c0d8261cce36971defa513f5ffd9f9b7a3d16728fc83a494
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GITLAB_CLIENT_SECRET: e72c65320cf9d6495984a37b0f9cc03ec46be0bb6f071feaebbfe75168117004
+      SPRING_MAIL_USERNAME: jira4jr@gmail.com
+      SPRING_MAIL_PASSWORD: zdfzsrqvgimldzyj
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Сервис для инициализации базы данных из файла data.sql
+  db-init:
+    image: postgres:latest
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: JiraRush
+    command: ["psql", "-h", "db", "-U", "jira", "-d", "jira", "-f", "/docker-entrypoint-initdb.d/data.sql"]
+    volumes:
+      - ./src/main/resources/data4dev:/docker-entrypoint-initdb.d  # Монтируем папку с data.sql как volume
