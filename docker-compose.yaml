@@ -56,3 +56,14 @@ services:
     command: ["psql", "-h", "db", "-U", "jira", "-d", "jira", "-f", "/docker-entrypoint-initdb.d/data.sql"]
     volumes:
       - ./src/main/resources/data4dev:/docker-entrypoint-initdb.d  # Монтируем папку с data.sql как volume
+
+  # Сервіс для запуску Nginx
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./resources/static:/opt/jirarush/resources:ro
+    depends_on:
+      - app
